@@ -171,7 +171,11 @@ export class SlpdbStatus {
             telemetryHash: await Info.getTelemetrySecretHash(),
             system: { loadAvg1: os.loadavg(1), loadAvg5: os.loadavg(5), loadAvg15: os.loadavg(15), platform: os.platform(), cpuCount: os.cpuCount(), freeMem: os.freemem(), totalMem: os.totalmem(), uptime: os.sysUptime(), processUptime: os.processUptime() }
         };
+        try {
         await this.updateTelemetry(status);
+        } catch (ex) {
+            console.error("[ERROR] Could not update telemetry: ", ex)
+        }
         return status;
     }
 
